@@ -1,0 +1,43 @@
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+body 
+{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#canvas 
+{
+    width: 1600px;
+    height: 800px;
+    border: 4px solid black; 
+}
+#loveButton 
+{
+    position: absolute;
+    right:30%;
+    top:72%;  
+    background-color: transparent;  
+    border: none;
+}
+#foodButton 
+{
+    position: absolute;
+    left:30%;
+    top:72%; 
+    background-color: transparent;
+    border: none;
+}
+#blobButton 
+{
+    position: absolute;
+
+    left:730px;
+    top:365px; 
+    background-color: transparent;
+    border: none;
+}
+

@@ -1,0 +1,26 @@
+--###################--
+-Tamagotchi clone game-
+--###################--
+
+
+	* Graphics
+-Cute character graphic (changes to look happy or sad or hungry etc.)
+   -Happy
+   -Sad
+   -Hungry
+   -Dead
+-Popup text field to name character
+-Buttons to feed & pet character (increases Happiness / Hungriness)
+-Buttons for antidepressant & revival patch
+-Bar indicating Happiness and Hungriness status
+
+
+	* Code note
+-Happiness and Hungriness values decline slowly
+-Expression graphic changes depending on values
+
+
+	* Extra features
+-If Happiness and Hungriness is fully satisfied, make character yawn and sleep
+-If Happiness is 0, use antidepressant
+-If Hungriness is 0, use revival patch
