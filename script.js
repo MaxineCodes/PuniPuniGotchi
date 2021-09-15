@@ -11,14 +11,12 @@ let reductionscalar = 0.7
 let Saturation = 1 * satisfactionscalar;
 let Happiness = 1 * satisfactionscalar;
 
-let blobGotFed = false;
-let blobGotLoved = false;
+let blobGotFed = false; let blobGotLoved = false;
 
 let gameFramerate = 1500   // 1000 = 1 second
-let scoreCalculator = 0;
-let score = scoreCalculator / 50;
+let score = 0; let finalScore;
 
-ctx.font = '50px Goergia';
+ctx.font = "60px Verdana";
 
 // MouseX:  461  MouseY:  411 ||  MouseX:  794  MouseY:  394
 // MouseX:  442  MouseY:  674 || MouseX:  802  MouseY:  674
@@ -58,6 +56,7 @@ function drawAllSprites()
     ctx.drawImage(img, 0, 0);
 
     drawProgressMeters();
+    drawScore();
 };
 function redrawcanvas()
 {
@@ -89,6 +88,13 @@ function drawProgressMeters()
     ctx.fillRect(60, 60, Saturation / 2, 60);
     ctx.fillStyle = "#ff99cc";
     ctx.fillRect(60, 120, Happiness / 2, 60);
+}
+function drawScore()
+{
+    ctx.fillStyle = "#936bb7";
+    ctx.fillText("score:", 1150, 100);
+    ctx.fillText(score, 1350, 100);
+    console.log(" Score: ", score);
 }
 
 
@@ -157,7 +163,7 @@ function fedTimer()
     },1000)
 }
 
-// is called every update
+// GAMELOOP is called every update
 var intervalId = window.setInterval(function () 
 {
     if (Saturation >= satisfactionscalar) {
@@ -172,12 +178,16 @@ var intervalId = window.setInterval(function ()
     if (Happiness <= 1) {
         Happiness = 1;
     }
+
+    score += 1;
+    finalScore = score - 1;
+    drawScore()
     
     Saturation -= reductionscalar * 1.02;
     Happiness -= reductionscalar * 0.90;
 
-    console.log(" Saturation: ", Saturation, " Happiness: ",Happiness);
-    console.log(blobGotFed, blobGotLoved);
+    console.log(" Saturation: ", Saturation, " Happiness: ", Happiness);
+    console.log(" blobGotFed: ", blobGotFed, "blobGotLoved", blobGotLoved);
 
     satisfaction = (Saturation + Happiness) / 2
 
