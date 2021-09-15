@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -12,16 +11,16 @@ let Saturation = 1 * satisfactionscalar;
 let Happiness = 1 * satisfactionscalar;
 
 let blobGotFed = false; let blobGotLoved = false;
+let alive = true;
 
 let gameFramerate = 1500   // 1000 = 1 second
 let score = 0; let finalScore;
 
 ctx.font = "60px Verdana";
 
-// MouseX:  461  MouseY:  411 ||  MouseX:  794  MouseY:  394
-// MouseX:  442  MouseY:  674 || MouseX:  802  MouseY:  674
-
-//--------------------------------- Mouse Input Detection
+//-------------------------------------------------------------------------------------------------------------------
+//--------------------------------- Mouse Input Detection (not currenty used) ---------------------------------------
+//-------------------------------------------------------------------------------------------------------------------
 const mouse = {
     x: canvas.width / 2,
     y: canvas.height / 2,
@@ -34,14 +33,10 @@ canvas.addEventListener('mousedown', function (event)
     mouse.y = event.y;
     console.log(" MouseX: ", mouse.x, " MouseY: ", mouse.y);
 });
-//-------------------------------------------------------
 
-// 1600 / 2 - 400 / 2 = 600     calculating centre for blob sprite
-// 800 / 2 - 3600 / 2 = 220
-
-// 1600 / 2 - 160 / 2 = 720     calculating centre for button sprites
-// 800 / 2 - 160 / 2 = 320
-
+//-------------------------------------------------------------------------------------------------------------------
+//--------------------------------- Drawing visuals -----------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------
 window.onload = function()
 {
     drawAllSprites();
@@ -97,8 +92,10 @@ function drawScore()
     console.log(" Score: ", score);
 }
 
-
-function pressedBlob() // 32
+//-------------------------------------------------------------------------------------------------------------------
+//--------------------------------- Button Functions ----------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------
+function pressedBlob()
 {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawAllSprites();
@@ -122,18 +119,16 @@ function pressedBlob() // 32
 }
 function pressedLoveButton()
 {
-    console.log("Love Button has been pressed");
-    blobGotLoved = true;
-    loveTimer();
-    redrawcanvas()
-    var img = document.getElementById("expression_owo");
-    ctx.drawImage(img, 600, 280);
-    /*while (blobGotLoved == true)
+    if (alive == true)
     {
+        console.log("Love Button has been pressed");
+        blobGotLoved = true;
+        loveTimer();
+        redrawcanvas()
         var img = document.getElementById("expression_owo");
         ctx.drawImage(img, 600, 280);
-    }*/
-    Happiness += 70;
+        Happiness += 70; 
+    }
 }
 function loveTimer()
 {
@@ -143,18 +138,16 @@ function loveTimer()
 }
 function pressedFoodButton()
 {
-    console.log("Food Button has been pressed");
-    blobGotFed = true;
-    fedTimer();
-    redrawcanvas()
-    var img = document.getElementById("expression_happiest");
-    ctx.drawImage(img, 600, 280);
-    /*while (blobGotLoved == true)
+    if (alive == true)
     {
-        var img = document.getElementById("expression_owo");
+        console.log("Food Button has been pressed");
+        blobGotFed = true;
+        fedTimer();
+        redrawcanvas()
+        var img = document.getElementById("expression_happiest");
         ctx.drawImage(img, 600, 280);
-    }*/
-    Saturation += 80;
+        Saturation += 80;
+    }
 }
 function fedTimer()
 {
@@ -163,7 +156,9 @@ function fedTimer()
     },1000)
 }
 
-// GAMELOOP is called every update
+//-------------------------------------------------------------------------------------------------------------------
+//--------------------------------- GAMELOOP -- Called every update -------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------
 var intervalId = window.setInterval(function () 
 {
     if (Saturation >= satisfactionscalar) {
@@ -179,8 +174,10 @@ var intervalId = window.setInterval(function ()
         Happiness = 1;
     }
 
-    score += 1;
-    finalScore = score - 1;
+    if (alive == true) {
+        score += 1;
+        finalScore = score - 1;
+    }
     drawScore()
     
     Saturation -= reductionscalar * 1.02;
@@ -224,15 +221,6 @@ var intervalId = window.setInterval(function ()
 
         var img = document.getElementById("expression_dead");
         ctx.drawImage(img, 600, 280);
+        alive = false;
     }
 }, gameFramerate);
-
-
-
-
-
-
-
-
-
-
